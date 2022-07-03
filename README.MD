@@ -1,7 +1,8 @@
 # Rest API with Deno
 
-- [Course](https://www.newline.co/courses/build-and-deploy-a-rest-api-with-deno/welcome)
+- [Following the course on Newline](https://www.newline.co/courses/build-and-deploy-a-rest-api-with-deno/welcome)
 
+![Deno logo][Deno.svg]
 # Table of content
 
 1. [Setting up the environment](#setting-up-the-environment)
