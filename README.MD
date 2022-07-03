@@ -4,7 +4,9 @@
     <img src="./DenoLogo.svg" alt="Deno lodo">
 </div>
 
-- [## Following this course on Newline](https://www.newline.co/courses/build-and-deploy-a-rest-api-with-deno/welcome)
+- [Following this course on Newline](https://www.newline.co/courses/build-and-deploy-a-rest-api-with-deno/welcome)
+
+---
 
 1. [Setting up the environment](#setting-up-the-environment)
 2. [Deno introduction](/../../tree/deno-introduction/INTRODUCTION.MD)
