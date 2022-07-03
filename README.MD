@@ -2,7 +2,7 @@
 
 - [Following the course on Newline](https://www.newline.co/courses/build-and-deploy-a-rest-api-with-deno/welcome)
 
-![Deno logo](Deno.svg)
+![Deno logo](DenoLogo.svg)
 # Table of content
 
 1. [Setting up the environment](#setting-up-the-environment)
