@@ -19,3 +19,15 @@ models and tables you create. Now imagine that having created the tables manuall
 same schema. Then imagine that you want to continue with theapplication, but you need the tables that your teammate developed!
 
 > ⚠️ The migration code should never reference any of the code or interfaces used in the rest of the application. This is to ensure that it will run the same migration at any time, no matter the state of the rest of the code at that time.
+
+---
+
+### Seed files
+
+We also need an easy way of getting some generic data into the database during development, to test the flow.
+A seed is useful in those cases, allowing us to easily load test data into our databases.
+When using seed files there are multiple ways of organizing them. You can have
+one seed file for each table, or one seed file to rule them all (although this
+is not really scalable). Seed should be only used in the development environment, and it should never be used in production to populate the database.
+
+> A seed file is only ever used with the latest state of your application and database, so you can use your entire codebase in your seed files if you need to. This also means that you will have to manually update the seed files if you alter the database.
