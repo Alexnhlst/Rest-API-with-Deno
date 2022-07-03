@@ -31,3 +31,12 @@ one seed file for each table, or one seed file to rule them all (although this
 is not really scalable). Seed should be only used in the development environment, and it should never be used in production to populate the database.
 
 > A seed file is only ever used with the latest state of your application and database, so you can use your entire codebase in your seed files if you need to. This also means that you will have to manually update the seed files if you alter the database.
+
+---
+
+### Nessie migrations
+
+Nessie is a library that runs database migrations and seed files for a Deno codebase.
+It has similarities to Laravel and Phinx. [^1]
+
+[^1]: [Nessie](https://github.com/halvardssm/deno-nessie)
