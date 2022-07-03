@@ -102,6 +102,8 @@ export { v4 } from "https://deno.land/std@0.128.0/uuid/mod.ts";
 export { serve } from "https://deno.land/std@0.128.0/http/server.ts";
 ```
 
+> `export` is used insted of `import` to export these files to `main.ts`
+
 To create a server, the dependencies are imported from `deps.ts`. 
 
 ```ts
@@ -223,7 +225,6 @@ Server is accessible @ http://localhost:2345/
 will start the server, accessible via `http://localhost:2345` and it will provide an hash;
 If the hash is recognized, visiting `http://localhost:2345/{token}` will show the response.
 
-> `export` is used insted of `import` to export these files to `main.ts`
 
 [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
 [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
