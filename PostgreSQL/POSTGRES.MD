@@ -32,7 +32,7 @@ docker run --rm -p 6543:5432 -e POSTGRES_PASSWORD=password postgres
 ### Writing the connection
 
 As the installation of libraries for Deno is as simple as importing a URL, we can follow the Readme.
-In a new file called `postgres.ts` this line is added.
+In a new file called `postgres.ts` this line is added.[^4]
 
 ```ts
 import { Client, Pool } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
@@ -131,8 +131,9 @@ clientInstance.release();
 await clientPool.end();
 ```
 
-To only get the rows, `results.row` will give an array of objects representing the result;
+To only get the rows, `results.row` will give an array of objects representing the result.
 
 [^1]: [Deno drivers](https://github.com/denodrivers)
 [^2]: [PostgreSQL drivers](https://github.com/denodrivers/postgres)
 [^3]: [Docker documentation](https://docs.docker.com/engine/reference/run/#clean-up---rm)
+[^4]: [postgres.ts](postgres.ts)
