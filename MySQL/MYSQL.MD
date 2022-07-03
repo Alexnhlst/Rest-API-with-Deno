@@ -32,10 +32,37 @@ docker run --rm -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mariadb
 
 > If an error is raised, it probably means that the port is already used for something else. 
 
+---
+
 ### Writing the connection
 
+For `MySQL`, the script will be hosted in the file `mysql.ts`. [^2]
+The starting point is importing the client.
+
+```ts
+import { Client } from "https://deno.land/x/mysql@v2.10.2/mod.ts";
+```
+
+This line will import the MySQL client and allows to acces MySQL.
+To establish a connection, we need to initiate the connection with the MySQL settings.
+
+```typescript
+const client = await new Client().connect({
+  port: 3306,
+  username: "root",
+  db: "mysql",
+});
+```
+
+Run the file with `deno run --allow-env --allow-net mysql.ts`, if the application outputs nothing and exits with a code 0 it means that all is working.
+
+---
+
 ### First query
+
+---
 
 ### Pool connection
 
 [^1]: [MySQL drivers](https://github.com/denodrivers/mysql)
+[^2]: [mysql.ts](mysql.ts)
