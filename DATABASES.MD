@@ -2,11 +2,11 @@
 
 ## Table of contents
 
-1. [Introduction](#introduction)
-2. [PostgreSQL](#postgresql)
+1. [PostgreSQL](#postgresql)
     - [Installing PostgreSQL](#installing-postgresql)
-3. [MySQL](#mysql)
-4. [SQLite](#sqlite)
+    - [Writing the connection](#writing-the-connection)
+2. [MySQL](#mysql)
+3. [SQLite](#sqlite)
 
 ### PostgreSQL
 
@@ -20,14 +20,35 @@ The driver for connecting to PostgreSQL are provided by Deno Drivers [^1][^2]
 The installation is provided using Docker. If there are any permission errors, the command must be executed with `sudo`.
 
 ```shell
-docker run --rm -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+docker run --rm -p 6543:5432 -e POSTGRES_PASSWORD=password postgres
 ```
 
 - `--rm` will clean up the container after killing it. [^3]
 - `-p` is short for `--port`. It links a port on the container with a port on the local system, allowing the connection.
 - `-e` is short for `--env`. It is used to pass an env variable to container.
 
-> If an error is raised, it probably means that the port is already used for something else.
+> If an error is raised, it probably means that the port is already used for something else. 
+
+---
+
+### Writing the connection
+
+As the installation of libraries for Deno is as simple as importing a URL, we can follow the Readme.
+In a new file called `postgres.ts` this line is added.
+
+```ts
+import { Client, Pool } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
+```
+
+This line will import the Postgres client and allows to acces Postgres.
+To establish a connection, we need to initiate the connection with the Postgres settings.
+By default, a fresh Postgres installation will have username `postgres` and password `password` unless something else is specified.
+
+{lang=typescript,line-numbers=on,cropt-start-line=1,crop-end-line=1}
+<<[postgres.ts](./postgres.ts)
+
+
+###
 
 [^1]: [Deno drivers](https://github.com/denodrivers)
 [^2]: [PostgreSQL drivers](https://github.com/denodrivers/postgres)
