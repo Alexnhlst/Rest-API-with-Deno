@@ -5,6 +5,7 @@
 # Table of content
 
 1. [Setting up the environment](#setting-up-the-environment)
+2. [Deno introduction](/../../tree/deno-introduction/INTRODUCTION.MD)
 
 ## Setting up the environment
 
@@ -32,7 +33,7 @@ docker run -it -p 1993:1993 -v $PWD:/app denoland/deno:1.19.2 run --allow-net /a
 
 - Installing the VSCode extension
 
-[link to the repository](https://github.com/denoland/vscode_deno)
+[Link to the repository](https://github.com/denoland/vscode_deno)
 
 > After the installation, to enable it open the command palette and type deno init
 
