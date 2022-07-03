@@ -26,7 +26,7 @@ docker run --rm -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql
 docker run --rm -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mariadb
 ```
 
-- `--rm` will clean up the container after killing it. [^3]
+- `--rm` will clean up the container after killing it.
 - `-p` is short for `--port`. It links a port on the container with a port on the local system, allowing the connection.
 - `-e` is short for `--env`. It is used to pass an env variable to container.
 
