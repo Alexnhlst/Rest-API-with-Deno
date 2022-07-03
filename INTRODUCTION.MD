@@ -4,6 +4,7 @@
 
 1. [Some differences to Node](##some-differences-to-node)
 2. [Deno REPL](##deno-repl)
+3. [Deno run](##deno-run)
 
 ### Some differences to node
 
@@ -18,8 +19,6 @@ var nodePackage = require("package")
 // Deno
 import denoModule from "https://example.com/package/mode.ts"
 ```
-
-[^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
 
 ---
 
@@ -38,3 +37,28 @@ undefined
 ```
 
 The REPL will output the return value of whatever is written. `console.log()` doesn't have any return value, so it has returned `undefined`
+
+---
+
+### Deno run
+
+Deno is built in Rust and can handle `js`, `ts`, `jsx`, and `tsx` files.
+Deno convers TypeScript into JavaScript via a combination of the TypeScript compiler and a Rust library called `swc`. [^2]
+Common names for entry files
+
+| Filename | Description                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------- |
+| main.ts  | Used by applications to signify the main entry point and where to load the application from               |
+| mod.ts   | Used by modules as an entry point to signify where to load components                                     |
+| cli.ts   | Used by modules where a command-line interface is available and serves as an entry point to the CLI       |
+| lib.ts   | Not as widely used as the prior three, but commonly used as an entry point for internally used components |
+
+```
+// main.ts
+console.log("Hello world!");
+```
+
+
+
+[^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
+[^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
