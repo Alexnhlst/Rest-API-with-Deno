@@ -70,9 +70,9 @@ Deno has a standard library (std) available for use. [^4]
 <details>
     <summary>Footnotes</summary>
 
-    [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
-    [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
-    [^3]: [main.ts](./main.ts)
-    [^4]: [Deno std](https://deno.land/std@0.146.0)
-    
+[^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
+[^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
+[^3]: [main.ts](./main.ts)
+[^4]: [Deno std](https://deno.land/std@0.146.0)
+
 </details>
