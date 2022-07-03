@@ -3,6 +3,7 @@
 1. [Installing PostgreSQL](#installing-postgresql)
 2. [Writing the connection](#writing-the-connection)
 3. [First query](#first-query)
+4. [Pool connection](#pool-connection)
 
 
 ### PostgreSQL
@@ -99,6 +100,35 @@ QueryObjectResult {
   columns: [ "column_1" ],
   rows: [ { column_1: "string 1" }, { column_1: "string 2" } ]
 }
+```
+
+---
+
+### Pool connection
+
+Instead of using the `Client` class, the `Pool` class is used to create a pool connection. Pool needs a `release()` when finished querying the database for that session. Pool and Client perform the same, however by using Pool, you will reduce the time it takes to create a connection for each query This is especially beneficial for applicatios with thousands of requests per second. 
+
+```ts
+const clientPool = new Pool(
+  {
+    user: "postgres",
+    password: "password",
+    database: "postgres",
+    hostname: "localhost",
+    port: 6543,
+  },
+  2
+);
+
+const clientInstance = await clientPool.connect();
+
+const resultPool = await clientInstance.queryObject("SELECT * FROM test_table");
+
+console.log(resultPool);
+
+clientInstance.release();
+
+await clientPool.end();
 ```
 
 To only get the rows, `results.row` will give an array of objects representing the result;

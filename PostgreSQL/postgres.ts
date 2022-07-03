@@ -23,3 +23,24 @@ const result = await client.queryObject("SELECT * FROM test_table");
 console.log(result);
 
 await client.end();
+
+const clientPool = new Pool(
+  {
+    user: "postgres",
+    password: "password",
+    database: "postgres",
+    hostname: "localhost",
+    port: 6543,
+  },
+  2
+);
+
+const clientInstance = await clientPool.connect();
+
+const resultPool = await clientInstance.queryObject("SELECT * FROM test_table");
+
+console.log(resultPool);
+
+clientInstance.release();
+
+await clientPool.end();
