@@ -7,3 +7,19 @@ const client = new Client({
   hostname: "localhost",
   port: 6543,
 });
+
+await client.connect();
+
+await client.queryObject(
+  "CREATE TABLE IF NOT EXISTS test_table (column_1 VARCHAR)"
+);
+
+await client.queryObject(
+  "INSERT INTO test_table (column_1) VALUES ('string 1'), ('string 2')"
+);
+
+const result = await client.queryObject("SELECT * FROM test_table");
+
+console.log(result);
+
+await client.end();

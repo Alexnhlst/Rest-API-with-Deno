@@ -55,12 +55,57 @@ const client = new Client({
 });
 ```
 
-Run the file with `deno run --allow-env postgres.ts`, if the application outputs nothing and exits with a code 0 it means that all is working.
+Run the file with `deno run --allow-env --allow-net postgres.ts`, if the application outputs nothing and exits with a code 0 it means that all is working.
 
 ---
 
 ### First query
 
+Since a connection is established with the database, it's time to execute some queries.
+The first query will create a new table.
+
+```ts
+await client.connect();
+
+await client.queryObject(
+  "CREATE TABLE IF NOT EXISTS test_table (column_1 VARCHAR)"
+);
+
+await client.queryObject(
+  "INSERT INTO test_table (column_1) VALUES ('string 1'), ('string 2')"
+);
+
+const result = await client.queryObject("SELECT * FROM test_table");
+
+console.log(result);
+
+await client.end();
+```
+
+```shell
+deno run --allow-env --allow-net postgres.ts
+```
+
+An output similar to this should be produced.
+
+```shell
+QueryObjectResult {
+  command: "SELECT",
+  rowCount: 2,
+  warnings: [],
+  query: Query {
+    args: [],
+    camelcase: undefined,
+    fields: undefined,
+    result_type: 1,
+    text: "SELECT * FROM test_table"
+  },
+  columns: [ "column_1" ],
+  rows: [ { column_1: "string 1" }, { column_1: "string 2" } ]
+}
+```
+
+To only get the rows, `results.row` will give an array of objects representing the result;
 
 [^1]: [Deno drivers](https://github.com/denodrivers)
 [^2]: [PostgreSQL drivers](https://github.com/denodrivers/postgres)
