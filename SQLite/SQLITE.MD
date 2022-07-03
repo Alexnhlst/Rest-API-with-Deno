@@ -38,6 +38,35 @@ deno run --allow-read --allow-write sqlite.ts
 
 ### First query
 
+Since a connection is established with the database, it's time to execute some queries.
+The first query will create a new table.
+
+```ts
+db.query("CREATE TABLE IF NOT EXISTS test_table (column_1 VARCHAR(100))");
+db.query("INSERT INTO test_table (column_1) VALUES ('string 1'), ('string 2')");
+
+const resultArray = [...db.query("SELECT * FROM test_table")];
+
+const resultObject = [...db.queryEntries("SELECT * FROM test_table")];
+
+console.log({ resultArray, resultObject });
+
+db.close();
+```
+
+```shell
+deno run --allow-read --allow-write sqlite.ts
+```
+
+An output similar to this should be produced.
+
+```shell
+{
+  resultArray: [ [ "string 1" ], [ "string 2" ] ],
+  resultObject: [ { column_1: "string 1" }, { column_1: "string 2" } ]
+}
+```
+
 ---
 
 [^1]: [SQLite drivers](https://github.com/dyedgreen/deno-sqlite)
