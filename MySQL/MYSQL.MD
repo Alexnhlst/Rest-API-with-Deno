@@ -96,10 +96,29 @@ INFO close connection
 
 The data is retrieved as an array of objects, in comparison to the Postgres client, there is not a lot of extra information available.
 
-
 ---
 
 ### Pool connection
+
+To use a pool connection with MySQL, `poolSize` is added to the connection parameters.
+The MySQL client creates a default pool of 1, and any other value will override this amount.
+
+```ts
+const clientPool = await new Client().connect({
+  port: 3306,
+  username: "root",
+  db: "mysql",
+  poolSize: 2,
+});
+
+const resultPool = await clientPool.query("SELECT * FROM test_table");
+
+console.log(resultPool);
+
+await clientPool.close();
+```
+
+Besides the additional option, there are no differences in the usage, and for each query, the client will grab ana available connection from te pool.
 
 [^1]: [MySQL drivers](https://github.com/denodrivers/mysql)
 [^2]: [mysql.ts](mysql.ts)

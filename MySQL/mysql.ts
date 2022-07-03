@@ -19,3 +19,16 @@ const result = await client.query("SELECT * FROM test_table");
 console.log(result);
 
 await client.close();
+
+const clientPool = await new Client().connect({
+  port: 3306,
+  username: "root",
+  db: "mysql",
+  poolSize: 2,
+});
+
+const resultPool = await clientPool.query("SELECT * FROM test_table");
+
+console.log(resultPool);
+
+await clientPool.close();
