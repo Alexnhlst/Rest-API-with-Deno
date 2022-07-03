@@ -6,6 +6,7 @@
 2. [Deno REPL](#deno-repl)
 3. [Deno run](#deno-run)
 4. [Deno standard library](#deno-standard-library)
+5. [Deno server](#deno-server)
 
 ### Some differences to node
 
@@ -28,7 +29,7 @@ import denoModule from "https://example.com/package/mode.ts"
 To open the REPL in the terminal
 
 ```
-deno repl
+> deno repl
 
 Deno 1.23.2
 exit using ctrl+d or close()
@@ -78,7 +79,7 @@ Executing the file, Deno will download and cache the imports in its cache folder
 To only cache the dependencies without executin any code, the `deno cache` commang is used
 
 ```console
-deno cache main.ts
+> deno cache main.ts
 ```
 
 Running the code with the colors imported will output them in the console.
@@ -87,7 +88,55 @@ Running the code with the colors imported will output them in the console.
 console.log(`This text is ${green("green")} and ${red("red")} `);
 ```
 
+---
+
+### Deno server
+
+One of the consideration for any module written in Deno is whether it is best to have one central dependency file, or if each fie should only import the respectively needed modules.
+One approach is to have a `depts.ts` to keep versioning simple across the codebase.
+The import are added to this file [^5]
+
+```javascript
+export { green, red } from "https://deno.land/std@0.128.0/fmt/colors.ts";
+export { v4 } from "https://deno.land/std@0.128.0/uuid/mod.ts";
+export { serve } from "https://deno.land/std@0.128.0/http/server.ts";
+```
+
+To create a server, the dependencies are imported from `dept.ts`. 
+
+```javascript
+import { green, serve } from "./dept.ts"
+```
+
+`serve` takes a callback which should return a response, and an options object.
+To include a port, the following is added to `main.ts`
+
+```javascript
+const port = 2345;
+serve(() => new Response(), {port});
+
+console.log(green(`Server is accessible @ http://localhost:${port}/`));
+```
+
+At the current state the app will generate this error
+
+```console
+⚠️  ️Deno requests net access to "0.0.0.0:2345". Run again with --allow-net to bypass this prompt.
+   Allow? [y/n (y = yes allow, n = no deny)]  
+```
+
+Deno is secure by default. Therefore, unless is specifically enable it, a deno module has no file, network, or environment access. Access to security-sensitive areas or function requires the use of permissions to be granted to a deno process on the command line. To fix the error, the comman is executed with `--allow-net`
+
+```console
+> deno run --allow-net main.ts
+Server is accessible @ http://localhost:2345/
+```
+
+
+> `export` is used insted of `import` to export these files to `main.ts`
+
 [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
 [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
 [^3]: [main.ts](./main.ts)
 [^4]: [Deno std](https://deno.land/std@0.146.0)
+[^5]: [depts.ts](dept.ts)

@@ -1,3 +1,6 @@
-import { green, red } from "https://deno.land/std@0.128.0/fmt/colors.ts";
+import { green, serve } from "./dept.ts";
 
-console.log(`This text is ${green("green")} and ${red("red")} `);
+const port = 2345;
+serve(() => new Response(), { port });
+
+console.log(green(`Server is accessible @ http://localhost:${port}/`));
