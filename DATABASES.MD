@@ -2,6 +2,6 @@
 
 ## Table of contents
 
-1. [PostgreSQL](/POSTGRES.MD)
-2. [MySQL](/MYSQL.MD)
-3. [SQLite](/SQLITE.MD)
+1. [PostgreSQL](./PostgreSQL/POSTGRES.MD)
+2. [MySQL](./MySQL/MYSQL.MD)
+3. [SQLite](./SQLite/SQLITE.MD)
