@@ -58,7 +58,8 @@ Common names for entry files
 console.log("Hello world!");
 ```
 
-
+To run the file `deno run main.ts` [^3]
 
 [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
 [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
+[^3]: [main.ts](./main.ts)
