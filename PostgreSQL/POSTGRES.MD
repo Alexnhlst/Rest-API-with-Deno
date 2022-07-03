@@ -102,6 +102,8 @@ QueryObjectResult {
 }
 ```
 
+To only retrieve the rows use `result.rows`, which will give the array of objects representing the result.
+
 ---
 
 ### Pool connection

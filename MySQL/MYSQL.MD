@@ -60,9 +60,47 @@ Run the file with `deno run --allow-env --allow-net mysql.ts`, if the applicatio
 
 ### First query
 
+Since a connection is established with the database, it's time to execute some queries.
+The first query will create a new table.
+
+```ts
+await client.execute(
+  "CREATE TABLE IF NOT EXISTS test_table (column_1 VARCHAR(100))"
+);
+
+await client.execute(
+  "INSERT INTO test_table (column_1) VALUES ('string 1'), ('string 2')"
+);
+
+const result = await client.query("SELECT * FROM test_table");
+
+console.log(result);
+
+await client.close();
+```
+
+```shell
+deno run --allow-env --allow-net mysql.ts
+```
+
+An output similar to this should be produced.
+
+```shell
+INFO connecting 127.0.0.1:3306
+INFO connected to 127.0.0.1:3306
+[ { column_1: "string 1" }, { column_1: "string 2" } ]
+INFO close connection
+```
+
+> The first two lines are logging information from the client. [^3]
+
+The data is retrieved as an array of objects, in comparison to the Postgres client, there is not a lot of extra information available.
+
+
 ---
 
 ### Pool connection
 
 [^1]: [MySQL drivers](https://github.com/denodrivers/mysql)
 [^2]: [mysql.ts](mysql.ts)
+[^3]: [MySQL logging](https://github.com/denodrivers/mysql#logging)
