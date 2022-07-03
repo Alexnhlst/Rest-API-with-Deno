@@ -5,6 +5,7 @@
 1. [Database migrations](#database-migrations)
 2. [Seed files](#seed-files)
 3. [Nessie migrations](#nessie-migrations)
+4. [Getting started with Nessie](#getting-started-with-nessie)
 
 ### Database migrations
 
@@ -38,5 +39,59 @@ is not really scalable). Seed should be only used in the development environment
 
 Nessie is a library that runs database migrations and seed files for a Deno codebase.
 It has similarities to Laravel and Phinx. [^1]
+
+---
+
+### Getting started with Nessie
+
+For creating and running migrations we need Nessie and a database.
+A script helps to initialize Nessie. It will create a Nessie config file `nessie.config.ts`, as well as an initial folder structure for migration and seed files.
+
+```shell
+deno run -A --unstable https://deno.land/x/nessie/cli.ts init
+```
+
+The folder should have this structure:
+
+```shell
+.
+├── db
+│   ├── migrations
+│   └── seeds
+└── nessie.config.ts
+```
+
+Inside `nessie.config.ts` there should be multiple client configurations. Choosen one, in this case PostgreSQL, the other import statements can be removed.
+
+```ts
+import {
+    ClientPostgreSQL,
+    NessieConfig,
+} from "https://deno.land/x/nessie@2.0.5/mod.ts";
+
+const client = new ClientPostgreSQL({
+    database: "nessie",
+    hostname: "localhost",
+    port: 5432,
+    user: "root",
+    password: "pwd",
+});
+/** This is the final config object */
+const config: NessieConfig = {
+    client,
+    migrationFolders: ["./db/migrations"],
+    seedFolders: ["./db/seeds"],
+};
+
+export default config;
+```
+
+There is a config object which takes a `client`, and also the folders in which we are storing our `migrations` and `seed` files. There are also other options available.
+
+- The `additionalMigrationFiles` and `additionalSeedFiles` allows to add files outside of the folder, and even more remote files stored on a webserver.
+- The `migrationTemplate` and `seedTemplate` allows to set a custom migration and seed template from which to create new migrations and seeds from.
+- The `debug` option allows for more verbose output to help with debugging.
+
+---
 
 [^1]: [Nessie](https://github.com/halvardssm/deno-nessie)
