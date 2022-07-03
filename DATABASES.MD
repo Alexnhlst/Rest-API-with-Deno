@@ -5,6 +5,7 @@
 1. [PostgreSQL](#postgresql)
     - [Installing PostgreSQL](#installing-postgresql)
     - [Writing the connection](#writing-the-connection)
+    - [First query](#first-query)
 2. [MySQL](#mysql)
 3. [SQLite](#sqlite)
 
@@ -44,7 +45,7 @@ This line will import the Postgres client and allows to acces Postgres.
 To establish a connection, we need to initiate the connection with the Postgres settings.
 By default, a fresh Postgres installation will have username `postgres` and password `password` unless something else is specified.
 
-```{lang=typescript,line-numbers=on,crop-start-line=3,crop-end-line=10}
+```typescript
 const client = new Client({
   user: "postgres",
   password: "password",
@@ -52,11 +53,14 @@ const client = new Client({
   hostname: "localhost",
   port: 6543,
 });
-
 ```
 
+Run the file with `deno run --allow-env postgres.ts`, if the application outputs nothing and exits with a code 0 it means that all is working.
 
-###
+---
+
+### First query
+
 
 [^1]: [Deno drivers](https://github.com/denodrivers)
 [^2]: [PostgreSQL drivers](https://github.com/denodrivers/postgres)
