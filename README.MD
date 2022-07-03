@@ -6,6 +6,7 @@
 
 1. [Setting up the environment](#setting-up-the-environment)
 2. [Deno introduction](/../../tree/deno-introduction/INTRODUCTION.MD)
+3. [Using databases with deno](/../../tree/deno-databases/DATABASES.MD)
 
 ## Setting up the environment
 
