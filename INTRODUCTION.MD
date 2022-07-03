@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-1. [Some differences to Node](##some-differences-to-node)
-2. [Deno REPL](##deno-repl)
-3. [Deno run](##deno-run)
+1. [Some differences to Node](#some-differences-to-node)
+2. [Deno REPL](#deno-repl)
+3. [Deno run](#deno-run)
 
 ### Some differences to node
 
