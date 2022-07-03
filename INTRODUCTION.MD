@@ -68,9 +68,23 @@ To run the file `deno run main.ts` [^3]
 Deno has a standard library (std) available for use. [^4]
 It is structurally based on Golang's standard library. Deno does not use a centralized package repository like npm; instead the modules are imported using a URL, and cached locally
 
+<p class="codeblock-label" style="font-size: 12px">main.ts</p>
 
-```typescript {id="deno-import" class="blue large" data-filename="main.ts"}
+```javascript
 import { green, red } from  "https://deno.land/std@0.128.0/fmt/colors.ts";
+```
+
+Executing the file, Deno will download and cache the imports in its cache folder for future use.
+To only cache the dependencies without executin any code, the `deno cache` commang is used
+
+```console
+deno cache main.ts
+```
+
+Running the code with the colors imported will output them in the console.
+
+```javascript
+console.log(`This text is ${green("green")} and ${red("red")} `);
 ```
 
 [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
