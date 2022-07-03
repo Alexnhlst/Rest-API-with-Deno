@@ -7,6 +7,7 @@
 3. [Deno run](#deno-run)
 4. [Deno standard library](#deno-standard-library)
 5. [Deno server](#deno-server)
+6. [Deno server token](#deno-server-token)
 
 ### Some differences to node
 
@@ -14,7 +15,7 @@ Deno does not use a package.json, the only kind of config used for Deno is an op
 There is also no `require` syntax to import files. Everything is imported via ES6 module imports with file endings. No package download or processing needed as long as it is a JS or TS file.
 Deno comes with a native bundler, compiler, formatter, linter, test runner, doc generator, and type generator.
 
-```
+```javascript
 // Node
 var nodePackage = require("package")
 
@@ -28,9 +29,8 @@ import denoModule from "https://example.com/package/mode.ts"
 
 To open the REPL in the terminal
 
-```
+```console
 > deno repl
-
 Deno 1.23.2
 exit using ctrl+d or close()
 > console.log("Hello world!");
@@ -93,7 +93,7 @@ console.log(`This text is ${green("green")} and ${red("red")} `);
 ### Deno server
 
 One of the consideration for any module written in Deno is whether it is best to have one central dependency file, or if each fie should only import the respectively needed modules.
-One approach is to have a `depts.ts` to keep versioning simple across the codebase.
+One approach is to have a `deps.ts` to keep versioning simple across the codebase.
 The import are added to this file [^5]
 
 ```javascript
@@ -102,10 +102,10 @@ export { v4 } from "https://deno.land/std@0.128.0/uuid/mod.ts";
 export { serve } from "https://deno.land/std@0.128.0/http/server.ts";
 ```
 
-To create a server, the dependencies are imported from `dept.ts`. 
+To create a server, the dependencies are imported from `deps.ts`. 
 
 ```javascript
-import { green, serve } from "./dept.ts"
+import { green, serve } from "./deps.ts"
 ```
 
 `serve` takes a callback which should return a response, and an options object.
@@ -125,13 +125,26 @@ At the current state the app will generate this error
    Allow? [y/n (y = yes allow, n = no deny)]  
 ```
 
-Deno is secure by default. Therefore, unless is specifically enable it, a deno module has no file, network, or environment access. Access to security-sensitive areas or function requires the use of permissions to be granted to a deno process on the command line. To fix the error, the comman is executed with `--allow-net`
+Deno is secure by default. Therefore, unless is specifically enable it, a deno module has no file, network, or environment access. Access to security-sensitive areas or function requires the use of permissions to be granted to a deno process on the command line. To fix the error, the comman is executed with `--allow-net` [^6]:
 
 ```console
 > deno run --allow-net main.ts
 Server is accessible @ http://localhost:2345/
 ```
 
+---
+
+### Deno server token
+
+A const hash set is created to keep track of the tokens. [^7]
+
+```javascript
+import { green, red, serve, v4 } from "./deps.ts";
+
+const port = 2345;
+const server = serve({ port });
+const hashes = new Set();
+```
 
 > `export` is used insted of `import` to export these files to `main.ts`
 
@@ -139,4 +152,6 @@ Server is accessible @ http://localhost:2345/
 [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
 [^3]: [main.ts](./main.ts)
 [^4]: [Deno std](https://deno.land/std@0.146.0)
-[^5]: [depts.ts](dept.ts)
+[^5]: [deps.ts](deps.ts)
+[^6]: [Permissions](https://deno.land/manual@main/getting_started/permissions)
+[^7]: [JS Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)

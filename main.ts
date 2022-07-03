@@ -1,6 +1,5 @@
-import { green, serve } from "./dept.ts";
+import { green, red, serve, v4 } from "./deps.ts";
 
 const port = 2345;
-serve(() => new Response(), { port });
-
-console.log(green(`Server is accessible @ http://localhost:${port}/`));
+const server = serve({ port });
+const hashes = new Set();
