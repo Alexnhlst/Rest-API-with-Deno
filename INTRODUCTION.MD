@@ -66,13 +66,14 @@ To run the file `deno run main.ts` [^3]
 ### Deno standard library
 
 Deno has a standard library (std) available for use. [^4]
+It is structurally based on Golang's standard library. Deno does not use a centralized package repository like npm; instead the modules are imported using a URL, and cached locally
 
-<details>
-    <summary>Footnotes</summary>
+
+```typescript {id="deno-import" class="blue large" data-filename="main.ts"}
+import { green, red } from  "https://deno.land/std@0.128.0/fmt/colors.ts";
+```
 
 [^1]: [Config file](https://deno.land/manual@v1.19.2/getting_started/configuration_file)
 [^2]: [TypeScript in Deno](https://deno.land/manual/typescript/overview)
 [^3]: [main.ts](./main.ts)
 [^4]: [Deno std](https://deno.land/std@0.146.0)
-
-</details>
