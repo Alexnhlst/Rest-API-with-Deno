@@ -44,8 +44,16 @@ This line will import the Postgres client and allows to acces Postgres.
 To establish a connection, we need to initiate the connection with the Postgres settings.
 By default, a fresh Postgres installation will have username `postgres` and password `password` unless something else is specified.
 
-{lang=typescript,line-numbers=on,crop-start-line=3,crop-end-line=10}
-<<[postgres.ts](./postgres.ts)
+```{lang=typescript,line-numbers=on,crop-start-line=3,crop-end-line=10}
+const client = new Client({
+  user: "postgres",
+  password: "password",
+  database: "postgres",
+  hostname: "localhost",
+  port: 6543,
+});
+
+```
 
 
 ###
