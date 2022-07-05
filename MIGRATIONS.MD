@@ -6,6 +6,8 @@
 2. [Seed files](#seed-files)
 3. [Nessie migrations](#nessie-migrations)
 4. [Getting started with Nessie](#getting-started-with-nessie)
+5. [Create migration](#create-migration)
+6. [Edit migration](#edit-migration)
 
 ### Database migrations
 
@@ -93,5 +95,51 @@ There is a config object which takes a `client`, and also the folders in which w
 - The `debug` option allows for more verbose output to help with debugging.
 
 ---
+
+### Create migration
+
+Creating a migration is simple. Nessie has a couple of commands buil-in, and one of them is `make:migration` (or `make` as a shorter alias of the same command). This command takes a name as a parameter and creates a migration file with the same name.
+
+```shell
+deno run -A --unstable https://deno.land/x/nessie/cli.ts make:migration create_initial_table
+```
+
+After executing this command, you will see the migration file in your migration folder;
+
+> The number prefix of the file indicates when the file was created.
+>
+> `[year][month][day][hour][minute][second]`
+
+```shell
+├── db
+│   ├── migrations
+│   │   └── 20210618183419_create_initial_table.ts
+│   └── seeds
+└── nessie.config.ts
+```
+
+```ts
+import {
+  AbstractMigration,
+  Info,
+  ClientPostgreSQL,
+} from "https://deno.land/x/nessie@2.0.5/mod.ts";
+
+export default class extends AbstractMigration<ClientPostgreSQL> {
+  /** Runs on migrate */
+  async up(info: Info): Promise<void> {}
+
+  /** Runs on rollback */
+  async down(info: Info): Promise<void> {}
+}
+```
+
+The `AbstractMigration` class is a generic abstract class. This generic type will help with type-hinting the `client` property which is used to connect to the database using the configuration from the config file. This client property is the respective database client chosen in the config file and is the client, but with the connection already established. When running the migration, Nessie will create the client and initiate the connection to the database so that you can simply run the queries you need
+
+> As Nessie is modular, you can create your own database client class if you
+> want to support another database outside of the supported three. Due to the
+> generic class you can even use this for type-hinting the client in the `AbstractMigration` class.
+
+it also contains abstract `up` and `down` methods which will be used for the migration and rollback respectively. They pass along an `info` object which can be used to get information about the connection type, and possibly more information in the future if needed.
 
 [^1]: [Nessie](https://github.com/halvardssm/deno-nessie)
